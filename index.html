@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Joelheira ProFlex</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #222;
+  border-radius: 20px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  color: white;
+  position: relative;
+  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-info {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+    .overlay-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-box {
+  background-color: #1e1e1e;
+  border-radius: 20px;
+  padding: 30px 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.close-overlay {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.selected-info {
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+ .botao-comprar {
+  background-color: #004d26; /* verde escuro */
+  border: 2px solid #25d366; /* verde claro */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  max-width: 250px;
+  display: inline-block;
+  text-align: center;
+  user-select: none;
+  margin-top: 10px;
+}
+
+.botao-comprar:hover {
+  background-color: #25d366;
+  color: black;
+}
+
+.botao-comprar.selecionado {
+  background-color: #25d366;
+  color: black;
+  border-color: #25d366;
+}
+
+
+    body {
+  padding-left: 16px;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+
+    html, body {
+  overflow-x: hidden;
+}
+
+  .whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #043d28;
+  border: 2px solid #25d366;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 999;
+  box-shadow: 0 0 10px rgba(37, 211, 102, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 14px rgba(37, 211, 102, 0.6);
+}
+
+
+.whatsapp-button img {
+  width: 28px;
+  height: 28px;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 16px rgba(37, 211, 102, 0.6);
+}
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0d0d0d;
+      color: #fff;
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .headline {
+      font-size: 2.5rem;
+      color: #00ffff;
+      font-family: 'Impact', sans-serif;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .subheadline {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    p, ul, li {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .local-video {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background-color: #111;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .local-video video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    video::-webkit-media-controls-enclosure {
+      overflow: hidden;
+    }
+
+    video::-webkit-media-controls-download-button,
+    video::-webkit-media-controls-fullscreen-button,
+    video::-webkit-media-controls-subtitles-button,
+    video::-webkit-media-controls-playback-rate-button,
+    video::-webkit-media-controls-pip-button {
+      display: none !important;
+    }
+
+    .video-block-overlay {
+      position: absolute;
+      top: 0;
+      left: 80%;
+      width: 20%;
+      height: 100%;
+      z-index: 3;
+      background-color: transparent;
+      pointer-events: all;
+    }
+
+    .image-placeholder {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background-color: #111;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .image-placeholder img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .cta-button {
+      background-color: #004d26;
+      color: white;
+      border: 2px solid #25d366;
+      padding: 15px 25px;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+      text-align: center;
+      text-decoration: none;
+      width: auto;
+      max-width: 250px;
+    }
+
+    .size-option-button {
+      background-color: #004d26;
+      color: white;
+      border: 2px solid #25d366;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      display: block;
+      margin: 10px auto 25px auto;
+      text-align: center;
+      text-decoration: none;
+      width: 150px;
+      max-width: 90%;
+    }
+
+    .size-text {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .size-p { background-image: linear-gradient(to right, #005f99, #99d6ff); }
+    .size-m { background-image: linear-gradient(to right, #0077b3, #b3e0ff); }
+    .size-g { background-image: linear-gradient(to right, #3399cc, #cce6ff); }
+    .size-gg { background-image: linear-gradient(to right, #66b2ff, #e6f2ff); }
+    .size-eg { background-image: linear-gradient(to right, #99ccff, #f2f9ff); }
+
+    .section {
+      margin: 40px 0;
+    }
+
+    .benefits ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .benefits li::before {
+      content: "✔️";
+      margin-right: 8px;
+      color: #00aaff;
+    }
+
+    .faq {
+      padding: 20px 0;
+    }
+
+    .faq-item {
+      margin-bottom: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-question {
+      background-color: #111;
+      color: #FFD700;
+      cursor: pointer;
+      padding: 15px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      position: relative;
+    }
+
+    .faq-question::after {
+      content: "+";
+      position: absolute;
+      right: 20px;
+      font-size: 20px;
+      color: #FFD700;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      background-color: #1a1a1a;
+      padding: 0 15px;
+      color: #ccc;
+      font-weight: 600;
+      white-space: pre-line;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 500px;
+      padding: 15px;
+    }
+
+    .faq-item.open .faq-question::after {
+      content: "-";
+    }
+
+    .preco-container p {
+      font-size: 1.1rem;
+      margin: 6px 0;
+    }
+
+    .preco {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #00aaff;
+      margin-left: 10px;
+    }
+
+    @media (max-width: 1020px) {
+      .headline {
+        font-size: 1.5rem;
+        padding: 0 10px;
+      }
+
+      .subheadline {
+        font-size: 1rem;
+        padding: 0 10px;
+      }
+
+      .cta-button,
+      .size-option-button {
+        width: 90%;
+        font-size: 1rem;
+      }
+
+      .faq-question {
+        font-size: 1.1rem;
+      }
+
+      .faq-answer {
+        font-size: 0.9rem;
+      }
+
+      .preco {
+        font-size: 1.2rem;
+      }
+    }
+    .size-option-button.selected,
+.price-option-button.selected {
+  background-color: #25d366;
+  border-color: #00ff99;
+  color: black;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+  display: none;
+}
+.error-message {
+  position: relative;
+  background: rgba(255, 0, 0, 0.15); /* vermelho transparente */
+  color: #ff0000;
+  font-weight: bold;
+  padding: 10px 40px 10px 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+  text-align: center;
+  display: none; /* começa escondido */
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1rem;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+}
+
+.error-message .close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-weight: bold;
+  color: #ff0000;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+  </style>
+  <!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '761292976557539');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=761292976557539&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+  <div class="container">
+    <div class="section-block">
+      <h1 class="headline">🔥Diga adeus às dores no joelho — sua liberdade começa hoje!</h1>
+      <p class="subheadline">A tecnologia ortopédica mais recomendada por especialistas que já transformou a vida de milhares de brasileiros.</p>
+      <div class="autoridade-medica" style="
+  color: #00aaff;
+  font-weight: 700;
+  margin-bottom: 16px;
+  font-size: 22px;
+  line-height: 1.3;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  ">
+  🩺 Dr. Marcelo (Ortopedista):<br>
+  “Indico essa joelheira para pacientes com artrose, lesões e dores crônicas no joelho.”
+</div>
+
+      <div class="local-video">
+<video id="videoori.mp4" width="100%" controls poster="thumbmarceloo.jpeg">
+  <source src="videoori.mp4" type="video/mp4">
+  Seu navegador não suporta vídeos HTML5.
+</video>
+
+        <div class="video-block-overlay"></div>
+      </div>
+      <p style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">
+        Ortopedistas, especialistas e pacientes de todo o Brasil estão indicando a Joelheira ProFlex! Experimente você também e sinta a diferença na sua caminhada.
+      </p>
+      <a href="index2.html" class="cta-button">Comprar</a>
+
+      
+      <div id="errorMessage" class="error-message">
+  Selecione todas as personalizações de joelheira que deseja para continuar
+  <button class="close-btn" aria-label="Fechar mensagem de erro">&times;</button>
+</div>
+    </div>
+
+    <div class="section-block benefits">
+</div>
+
+    <div class="section-block">
+      <h2>O que nossos clientes dizem:</h2>
+      <p>Veja como a ProFlex está ajudando milhares de pessoas a viverem sem dores no joelho:</p>
+<div class="local-video">
+        <video id="meuVideo2" controls controlsList="nodownload nofullscreen noremoteplayback" poster="thumbvideoquatro.jpeg">
+          <source src="videoquatro.mp4" type="video/mp4" />
+          Seu navegador não suporta vídeo HTML5.
+        </video>
+        <div class="video-block-overlay"></div>
+      </div>
+    </div>
+<div class="local-video">
+        <video id="meuVideo2" controls controlsList="nodownload nofullscreen noremoteplayback" poster="thumbvideocinco.jpeg">
+          <source src="videocinco.mp4" type="video/mp4" />
+          Seu navegador não suporta vídeo HTML5.
+        </video>
+        <div class="video-block-overlay"></div>
+      </div>
+    </div>
+      
+
+<h2>Perfeita para aliviar dores e devolver sua liberdade de movimento:</h2>
+<ul>
+        <li>Alivia dores ao caminhar e subir escadas</li>
+        <li>Dá mais firmeza nos movimentos do dia a dia</li>
+        <li>Melhora a circulação e reduz inflamações</li>
+        <li>Ajuda na recuperação de lesões no joelho</li>
+        <li>Ideal para artrose, desgaste da cartilagem, dores crônicas e pós-cirurgias</li>
+        <li>Pode ser usada em casa, no trabalho ou durante exercícios leves</li>
+      </ul>
+      <div class="image-placeholder">
+        <img src="joelehera.jpeg" alt="Joelheira ProFlex"/>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 15px; background-color: #111; padding: 20px; border-radius: 10px; margin-top: 30px; box-shadow: 0 0 10px rgba(0,255,255,0.2);">
+  <img src="selo-garantia.png" alt="Selo de Garantia 7 Dias" style="width: 100px; height: auto;">
+  <div style="max-width: 300px;">
+    <h3 style="color: #00c853; margin: 0 0 10px;">GARANTIA INCONDICIONAL DE 7 DIAS</h3>
+    <p style="color: #fff; margin: 0;">Se a joelheira não servir ou você não gostar por qualquer motivo, devolvemos seu dinheiro SEM BUROCRACIA.</p>
+  </div>
+</div>
+
+        <!-- Seção de tamanhos -->
+<div id="secao-tamanhos">
+  <!-- Botões de tamanho aqui -->
+
+    </div>
+    <div class="section-block preco-container" id="secao-precos">
+      <h2>Escolha sua oferta:</h2>
+      
+      <p>✅ Unidade: <span class="preco">R$ 119,90</span></p><br />
+     <a href="index2.html" class="cta-button">Comprar uma</a>
+
+      <p>Observação: Não tem lado. Serve na perna esquerda como na direita.</p>
+
+      <p><strong>MELHOR OFERTA ❤️👇</strong></p>
+      <p>✅ Par (2 unidades): <span class="preco">R$ 164,00</span></p><br />
+      <a href="index2.html" class="cta-button">Comprar um par</a>
+
+      <p>Nessa oferta a unidade sai por R$ 82,00 cada. Todo mundo leva de 2 unidades, inclusive é recomendação médica.</p><br />
+
+      <p>✅ 2 pares (4 unidades): <span class="preco">R$ 287,00</span></p><br />
+      <a href="index2.html" class="cta-button">Comprar dois pares</a>
+
+      <p>Nessa oferta a unidade sai por R$ 71,75 cada.</p>
+    </div>
+    <!-- Seção de Cartões e CNPJ -->
+<div style="text-align: center; margin: 40px 0; padding: 20px; background-color: #111; border-radius: 10px; box-shadow: 0 0 10px rgba(0,255,255,0.1);">
+  <h3 style="color: #00ffff; margin-bottom: 10px;">Aceitamos esses cartões:</h3>
+  <p style="color: #ccc; font-size: 0.95rem; margin-bottom: 12px;">CNPJ: 35.887.924/0001-36</p>
+  <img src="cartoes.webp" alt="Cartões aceitos" style="max-width: 300px; width: 90%; height: auto; border-radius: 8px; box-shadow: 0 0 5px rgba(255,255,255,0.1);">
+</div>
+
+
+    <div class="section-block faq">
+      <h2>Dúvidas Frequentes</h2>
+      <div class="faq-item"><div class="faq-question">Em quanto tempo chega?</div><div class="faq-answer">Prazo de 2 a 3 dias</div></div>
+
+      <div class="faq-item"><div class="faq-question">Qual o tempo de garantia?</div><div class="faq-answer">3 meses de garantia. Durabilidade mais de 2 anos</div></div>
+
+      <div class="faq-item"><div class="faq-question">E se não servir?</div><div class="faq-answer">Não tem problema, fazemos a troca, em até 7 dias.</div></div>
+
+      <div class="faq-item"><div class="faq-question">Como devo usar?</div><div class="faq-answer">Pode usar o dia todo sem restrição. Para dormir não é necessário pois não há sobrepeso no joelho.</div></div>
+
+      <div class="faq-item"><div class="faq-question">Posso lavar a Joelheira?</div><div class="faq-answer">Sim, preferencialmente sabão neutro, e não lavar na máquina, lave a mão.</div></div>
+
+      <div class="faq-item"><div class="faq-question">Tem opção de cores?</div><div class="faq-answer">Não, por ser um produto ortopédico profissional a cor é padrão</div></div>
+
+      <div class="faq-item"><div class="faq-question">E se eu não gostar?</div><div class="faq-answer">Fazemos a devolução do seu dinheiro total em até 7 dias.</div></div>
+
+      <div class="faq-item"><div class="faq-question">Recomendação médica</div><div class="faq-answer">Usar o par. (Porque quando um joelho está afetado, sobrecarrega o outro)</div></div>
+
+      <div class="faq-item"><div class="faq-question">Tem Lado?</div><div class="faq-answer">Não, tanto faz pode usar na perna esquerda ou direita. (Não tem lado)</div></div>
+
+      <div class="faq-item"><div class="faq-question">Tem desconto?</div><div class="faq-answer">
+Sim. Maior a compra, maior o desconto.
+
+Unidade R$ 119,90
+
+Par (2 unidades) R$ 164,00  
+Nessa oferta unidade sai por R$ 82,00 cada.
+
+2 pares (4 unidades) R$ 287,00  
+Nessa oferta unidade sai por R$ 71,75 cada.
+      </div></div>
+    </div>
+  </div>
+
+  <script>
+ 
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    item.querySelector('.faq-question').addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+  });
+
+  // Seleção de tamanho
+  const sizeButtons = document.querySelectorAll('.size-option-button');
+  let selectedSize = null;
+
+  sizeButtons.forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      sizeButtons.forEach(btn => btn.classList.remove('selected'));
+      this.classList.add('selected');
+      selectedSize = this;
+    });
+  });
+
+  // Seleção de preço
+  const priceButtons = document.querySelectorAll('.price-option-button');
+  let selectedPrice = null;
+
+  priceButtons.forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      priceButtons.forEach(btn => btn.classList.remove('selected'));
+      this.classList.add('selected');
+      selectedPrice = this;
+
+      // Validação
+      const errorMsg = document.getElementById('errorMessage');
+      if (!selectedSize) {
+        errorMsg.style.display = 'block';
+      } else {
+        errorMsg.style.display = 'none';
+        window.location.href = this.getAttribute('href');
+      }
+    });
+  });
+  
+  // Ir para a seção de preços ao clicar em um botão de tamanho
+  document.querySelectorAll('#secao-tamanhos button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('secao-precos').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Ir para a seção de tamanhos ao clicar em um botão de preço
+  document.querySelectorAll('#secao-precos button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('secao-tamanhos').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  // Espera o carregamento da página
+  window.addEventListener('DOMContentLoaded', () => {
+    // Quando clicar em botão de tamanho, rola para os preços
+    document.querySelectorAll('#secao-tamanhos button').forEach(botao => {
+      botao.addEventListener('click', () => {
+        const destino = document.getElementById('secao-precos');
+        if (destino) {
+          destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Quando clicar em botão de preço, rola para os tamanhos
+    document.querySelectorAll('#secao-precos button').forEach(botao => {
+      botao.addEventListener('click', () => {
+        const destino = document.getElementById('secao-tamanhos');
+        if (destino) {
+          destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  });
+  const botoesComprarPrecos = document.querySelectorAll('#sessao-precos .botao-comprar');
+
+botoesComprarPrecos.forEach(botao => {
+  botao.addEventListener('click', () => {
+    botoesComprarPrecos.forEach(b => b.classList.remove('selecionado'));
+    botao.classList.add('selecionado');
+  });
+});
+const overlay = document.getElementById('checkoutOverlay');
+const summary = document.getElementById('selectedSummary');
+const closeOverlay = document.querySelector('.close-overlay');
+const firstBuyButton = document.querySelector('.cta-button[href="#compra"]');
+
+firstBuyButton.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  if (!selectedSize || !selectedPrice) {
+    errorMsg.style.display = 'block';
+    return;
+  }
+
+  summary.textContent = `Você escolheu: ${selectedSize.textContent} e ${selectedPrice.textContent}`;
+  overlay.style.display = 'flex';
+});
+
+closeOverlay.addEventListener('click', () => {
+  overlay.style.display = 'none';
+});
+
+
+  const botaoAbrirModal = document.getElementById('botaoComprarModal');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const closeModal = document.querySelector('.modal-close');
+  const selecoesUsuario = document.getElementById('selecoesUsuario');
+
+  botaoAbrirModal.addEventListener('click', (e) => {
+    e.preventDefault();
+    let tamanho = document.querySelector('.size-option-button.selected');
+    let preco = document.querySelector('.price-option-button.selected');
+
+    if (tamanho && preco) {
+      selecoesUsuario.innerText = `Você selecionou: ${tamanho.innerText} e ${preco.innerText}`;
+    } else {
+      selecoesUsuario.innerText = `Você ainda não selecionou todas as opções`;
+    }
+
+    modalOverlay.style.display = 'flex';
+  });
+
+  closeModal.addEventListener('click', () => {
+    modalOverlay.style.display = 'none';
+  });
+
+
+</script>
+
+<a href="https://wa.me/5511984808932"
+   class="whatsapp-button botao-zap"
+   target="_blank"
+   rel="noopener"
+   onclick="fbq('track', 'Contact');">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" />
+  <span>Fale conosco</span>
+</a>
+
+
+<div id="checkoutOverlay" style="display:none;" class="overlay-background">
+  <div class="overlay-box">
+    <button class="close-overlay">&times;</button>
+    <div class="selected-info" id="selectedSummary">Você escolheu:</div>
+    <a id="goToCheckout" class="cta-button price-option-button" href="https://www.mercadopago.com.br" target="_blank">
+      Ir para check-out
+    </a>
+  </div>
+</div>
+<div id="modalOverlay" class="modal-overlay" style="display: none;">
+  <div class="modal-content">
+    <button class="modal-close">&times;</button>
+    <p id="selecoesUsuario" class="modal-info">Você selecionou: Tamanho M e Par</p>
+    <a href="LINK_DO_MERCADO_PAGO" class="cta-button">Ir para check-out</a>
+  </div>
+</div>
+
+</body>
+</html>
